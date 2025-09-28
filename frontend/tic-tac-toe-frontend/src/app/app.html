@@ -1,0 +1,32 @@
+<div class="menu" *ngIf="!gameStarted">
+  <h1 class="title"> Tic-Tac-Toe</h1>
+  <button class="menu-btn" (click)="startGame('pvp')"> Player vs Player</button>
+  <button class="menu-btn" (click)="startGame('pvc')"> Player vs Computer</button>
+</div>
+
+<div class="game-container" *ngIf="gameStarted">
+  <h2 class="status" *ngIf="!gameState.gameOver">
+    {{ gameState.currentPlayer === 'X' ? ' Player X' : ' Player O' }}'s Turn
+  </h2>
+
+  <div class="board">
+    <div
+      class="cell"
+      *ngFor="let cell of gameState.board; let i = index"
+      (click)="makeMove(i)"
+    >
+      <span class="symbol" [ngClass]="cell">{{ cell }}</span>
+    </div>
+  </div>
+
+  <div class="result" *ngIf="gameState.gameOver">
+    <h2 *ngIf="gameState.winner === 'draw'"> It's a Draw!</h2>
+    <h2 *ngIf="gameState.winner === 'X'"> Player X Wins!</h2>
+    <h2 *ngIf="gameState.winner === 'O'"> Player O Wins!</h2>
+  </div>
+
+  <div class="controls">
+    <button class="control-btn" (click)="resetGame()"> Restart</button>
+    <button class="control-btn back" (click)="backToMenu()"> Back to Menu</button>
+  </div>
+</div>
